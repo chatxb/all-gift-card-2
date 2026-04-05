@@ -10,169 +10,101 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
-        :root { --accent: #2563eb; }
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f2f2f2; 
-            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; 
-            color: #1a1a1a; min-height: 100vh; overflow-x: hidden;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f2f2f2; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; }
 
-        .top-nav { 
-            width: 100%; padding: 14px 0; 
-            background: rgba(242, 242, 242, 0.9); 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
-            text-align: center; backdrop-filter: blur(15px); 
-            position: fixed; top: 0; left: 0; z-index: 1000;
-            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .top-nav { width: 100%; padding: 14px 0; background: rgba(242, 242, 242, 0.9); border-bottom: 1px solid rgba(0, 0, 0, 0.05); text-align: center; backdrop-filter: blur(15px); position: fixed; top: 0; left: 0; z-index: 1000; transition: top 0.4s ease; }
         .top-nav.nav-hidden { top: -85px; }
-
-        .nav-banner { 
-            display: inline-flex; align-items: center; gap: 8px; 
-            padding: 8px 20px; border-radius: 100px; 
-            background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-        .nav-banner h1 { 
-            font-size: 13px; font-weight: 800; color: #1a1a1a; 
-            text-transform: uppercase; letter-spacing: 1px; margin: 0; 
-        }
+        .nav-banner { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 100px; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.05); }
+        .nav-banner h1 { font-size: 13px; font-weight: 800; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
 
         .container { width: 100%; max-width: 1100px; padding: 100px 12px 40px; }
-
         .grid { display: grid; gap: 14px; margin-bottom: 40px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
         @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; } }
 
-        .card { 
-            background: #ffffff; border-radius: 24px; padding: 25px 15px; text-align: center; 
-            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; 
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06); 
-        }
-        .card:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
-        .card img { width: 68px; height: 68px; margin: 0 auto 18px; border-radius: 14px; }
+        .card { background: #ffffff; border-radius: 24px; padding: 25px 15px; text-align: center; border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .card img { width: 68px; height: 68px; margin: 0 auto 18px; border-radius: 14px; object-fit: contain; }
         .card h3 { font-weight: 800; font-size: 14px; color: #333; margin-bottom: 18px; }
-        
-        .btn-green { 
-            margin-top: auto; 
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
-            color: white; border: none; width: 100%; padding: 12px; border-radius: 14px; 
-            font-weight: 800; font-size: 11px; text-transform: uppercase; 
-        }
+        .btn-green { margin-top: auto; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; width: 100%; padding: 12px; border-radius: 14px; font-weight: 800; font-size: 11px; text-transform: uppercase; }
 
-        /* --- UPDATED SHARE BOX DESIGN FOR BETTER VISIBILITY --- */
-        .share-box { 
-            background: #1f2937; /* Slightly lighter than pure black */
-            border-radius: 28px; padding: 40px 20px; margin: 20px auto; 
-            max-width: 550px; width: 100%; text-align: center; color: #fff; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
-        }
-        .prog-container { 
-            background: #374151; /* Lighter background for the bar track */
-            height: 14px; border-radius: 50px; margin: 20px 0 10px; overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .prog-fill { 
-            width: 0%; height: 100%; 
-            background: linear-gradient(90deg, #10b981, #34d399); 
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-            transition: 0.6s ease; 
-        }
-        #countText {
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-            font-size: 12px;
-        }
+        /* WIN NOTIFICATION */
+        #win-notify { position: fixed; top: -60px; right: 10px; background: #ffffff; border-radius: 30px; padding: 5px 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 6px; z-index: 9999; transition: top 0.4s ease-in-out; border: 1px solid #eee; pointer-events: none; }
+        #win-notify.show { top: 75px; }
+        .win-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: pulse 1.5s infinite; }
+        .win-text { font-size: 10px; color: #4b5563; font-weight: 600; white-space: nowrap; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* SHARE BOX */
+        .share-box { background: #1f2937; border-radius: 28px; padding: 40px 20px; margin: 20px auto; max-width: 550px; width: 100%; text-align: center; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .prog-container { background: #374151; height: 14px; border-radius: 50px; margin: 20px 0 10px; overflow: hidden; }
+        .prog-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: 0.6s ease; }
         .btn-wa { background: #25d366; color: white; width: 100%; padding: 16px; border-radius: 18px; margin-top: 15px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 14px; }
 
-        .main-footer { 
-            padding: 60px 20px 40px; text-align: center; 
-            background: #ffffff; width: 100%; border-top: 1px solid #e5e7eb;
-            margin-top: 50px;
-        }
-        .footer-brand { font-weight: 800; font-size: 16px; color: #111827; margin-bottom: 15px; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; }
-        .footer-links a { color: #4b5563; text-decoration: none; font-size: 13px; font-weight: 600; }
-        .footer-info { max-width: 700px; margin: 0 auto; font-size: 11px; color: #9ca3af; line-height: 1.8; }
-
-        /* --- POP-UP --- */
-        #modalOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(8px); padding: 20px; }
-        .modal-box { background: #ffffff; border-radius: 2.5rem; padding: 2rem 1.5rem; max-width: 320px; width: 100%; text-align: center; border-top: 8px solid #f97316; position: relative; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4); }
-        .btn-premium-green { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; padding: 16px; border-radius: 12px; font-weight: 700; display: block; text-decoration: none; margin-bottom: 12px; font-size: 13px; text-transform: uppercase; }
-        #checkBtn { background: #1f2937; color: white; width: 100%; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; }
-        .btn-failed { background-color: #ef4444 !important; }
-        .modal-steps { text-align: left; margin: 15px 0; background: #f8fafc; padding: 15px; border-radius: 20px; border: 1px solid #e2e8f0; }
+        /* MODAL */
+        #modalOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(8px); padding: 20px; }
+        .modal-box { background: #ffffff; border-radius: 2.5rem; padding: 2.5rem 1.5rem; max-width: 320px; width: 100%; text-align: center; border-top: 8px solid #f97316; position: relative; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4); }
+        .modal-steps { text-align: left; margin: 18px 0; background: #f8fafc; padding: 15px; border-radius: 20px; border: 1px solid #e2e8f0; }
         .step-item { display: flex; gap: 8px; margin-bottom: 12px; }
-        .step-num { background: #2563eb; color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
-        .step-text { font-size: 10.5px; font-weight: 600; color: #1e293b; line-height: 1.4; }
+        .step-num { background: #2563eb; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+        .step-text { font-size: 11px; font-weight: 600; color: #1e293b; line-height: 1.4; }
+        #checkBtn { background: #1f2937; color: white; width: 100%; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; text-transform: uppercase; transition: 0.3s; }
+        .btn-failed { background-color: #ef4444 !important; }
+
+        .modal-footer-info { margin-top: 15px; padding-top: 10px; border-top: 1px dashed #cbd5e1; }
+        .m-footer-1 { font-size: 10px; font-weight: 500; color: #6b7280; }
+        .m-footer-2 { font-size: 10.5px; font-weight: 600; color: #10b981; text-transform: uppercase; margin-top: 2px; }
+
+        .main-footer { padding: 50px 20px 30px; text-align: center; background: #ffffff; width: 100%; border-top: 1px solid #e5e7eb; margin-top: 40px; }
         body.modal-active { overflow: hidden; }
     </style>
 </head>
 <body>
 
     <nav class="top-nav" id="topNav">
-        <div class="nav-banner">
-            <h1>Google Play Giveaway</h1>
-        </div>
+        <div class="nav-banner"><h1>Google Play Giveaway</h1></div>
     </nav>
 
     <div class="container">
         <div id="cardGrid" class="grid"></div>
-
         <div class="share-box">
             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play" class="w-16 h-16 mx-auto mb-4">
             <h2 class="text-2xl font-black text-white uppercase tracking-tight">$500 CARD</h2>
             <p class="text-slate-300 text-xs mt-2 px-4">Share with friends on WhatsApp to register your entry for the giveaway</p>
-            
-            <div class="prog-container">
-                <div class="prog-fill" id="bar"></div>
-            </div>
-            
-            <div id="countText" class="text-[11px] font-black text-emerald-400 tracking-widest uppercase">
-                <i class="fas fa-spinner fa-spin mr-1" id="spinIcon" style="display:none;"></i> 
-                PROGRESS: <span id="currentC">0</span> / 5 SHARES
-            </div>
-            
+            <div class="prog-container"><div class="prog-fill" id="bar"></div></div>
+            <div id="countText" class="text-[11px] font-black text-emerald-400 tracking-widest uppercase">PROGRESS: <span id="currentC">0</span> / 5 SHARES</div>
             <button class="btn-wa" onclick="sh()"><i class="fab fa-whatsapp mr-2"></i> SHARE & JOIN DRAW</button>
         </div>
     </div>
 
+    <div id="win-notify">
+        <div class="win-dot"></div>
+        <div class="win-text"><b id="win-email">loading...</b> won <span id="win-reward">...</span></div>
+    </div>
+
     <footer class="main-footer">
-        <div class="footer-brand">Google Play Rewards</div>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Contact Support</a>
-        </div>
-        <div class="footer-info">
-            © 2026 Rewards Hub Global | Independent educational landing page.
-        </div>
+        <div class="flex justify-center gap-4 mb-4"><a href="#" class="text-blue-600 font-bold text-xs">Privacy Policy</a><a href="#" class="text-blue-600 font-bold text-xs">Terms of Use</a></div>
+        <p class="max-w-2xl mx-auto text-[10px] text-gray-500 font-medium">Independent educational giveaway platform. NOT affiliated with Google LLC.</p>
+        <p class="mt-4 font-bold text-gray-800 text-xs">© 2026 Rewards Hub Global. All logos property of respective owners.</p>
     </footer>
 
     <div id="modalOverlay">
         <div class="modal-box">
-            <button onclick="closeModal()" class="absolute top-4 right-5 text-slate-400"><i class="fas fa-times text-lg"></i></button>
-            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 border border-orange-200">
-                <i class="fas fa-gift text-2xl animate-bounce"></i>
-            </div>
+            <button onclick="closeModal()" class="absolute top-5 right-6 text-slate-400"><i class="fas fa-times text-xl"></i></button>
+            <div class="bg-orange-100 text-orange-600 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-200"><i class="fas fa-gift text-2xl animate-bounce"></i></div>
             <h2 class="text-xl font-extrabold text-slate-900">One Last Step</h2>
             <p class="text-orange-500 font-bold text-[9px] mb-2 uppercase tracking-widest">Verification Required</p>
-            <h3 class="text-sm font-bold text-gray-700 mb-3 px-2">
-                Win a chance to get <span id="modalAmount" class="text-blue-600 font-black"></span> 💎
-            </h3>
+            <h3 class="text-[15px] font-bold text-gray-700 mb-2 px-2">Win a chance to get <span id="modalAmount" class="text-blue-600 font-black"></span><span id="popDiamond"></span></h3>
             <div class="modal-steps">
                 <div class="step-item"><span class="step-num">1</span><p class="step-text">Tap To "Download & Register" and sign up app/site.</p></div>
                 <div class="step-item"><span class="step-num">2</span><p class="step-text">Use it for 20–30 seconds.</p></div>
                 <div class="step-item"><span class="step-num">3</span><p class="step-text">Return here and submit your email to enter the giveaway.</p></div>
             </div>
             <div class="space-y-3">
-                <a href="#" id="cpaLink" target="_blank" class="btn-premium-green"><i class="fas fa-download mr-1"></i> DOWNLOAD & REGISTER</a>
+                <a href="#" id="cpaLink" target="_blank" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; padding: 16px; border-radius: 12px; font-weight: 700; display: block; text-decoration: none; margin-bottom: 12px; font-size: 13px; text-transform: uppercase;">DOWNLOAD & REGISTER</a>
                 <button onclick="startFakeCheck()" id="checkBtn"><i class="fas fa-sync-alt" id="syncIcon"></i> CHECK STATUS</button>
             </div>
-            <div class="mt-6 pt-4 border-t border-dashed border-slate-200">
-                <p class="text-[11px] font-extrabold text-slate-600 mb-1">© Winners announced via email.</p>
-                <p class="text-[11px] font-black text-emerald-600 uppercase">Complete registration to be eligible</p>
+            <div class="modal-footer-info">
+                <p class="m-footer-1">© Winners announced via email.</p>
+                <p class="m-footer-2">Complete registration to be eligible</p>
             </div>
         </div>
     </div>
@@ -180,55 +112,66 @@
 <script>
     let lastScroll = 0;
     const topNav = document.getElementById('topNav');
-
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        if (currentScroll <= 0) {
-            topNav.classList.remove('nav-hidden');
-            return;
-        }
-        if (currentScroll > lastScroll && !topNav.classList.contains('nav-hidden')) {
-            topNav.classList.add('nav-hidden');
-        } else if (currentScroll < lastScroll && topNav.classList.contains('nav-hidden')) {
-            topNav.classList.remove('nav-hidden');
-        }
+        if (currentScroll > lastScroll && currentScroll > 80) { topNav.classList.add('nav-hidden'); } 
+        else { topNav.classList.remove('nav-hidden'); }
         lastScroll = currentScroll;
     });
 
     const offers = [
-        { amt: "6,000 FF Diamonds", img: "https://ffredeemcode1890ff.netlify.app/images/diamonds-reward.jpg", link: "https://otieu.com/4/10300559" }, 
-        { amt: "20,000 Robux", img: "https://iili.io/BfBFGg2.jpg", link: "https://otieu.com/4/10300559" }, 
-        { amt: "$200 Google Card", img: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg", link: "https://otieu.com/4/10300559" }, 
-        { amt: "4,500 PUBG UC", img: "https://iili.io/BKvttcv.jpg", link: "https://otieu.com/4/10300559" }, 
-        { amt: "5,000 COC Gems", img: "https://iili.io/fmygR1e.png", link: "https://otieu.com/4/10300559" }, 
-        { amt: "15,500 V-Bucks", img: "https://iili.io/BfCGNx1.jpg", link: "https://otieu.com/4/10300559" },
-        { amt: "18,000 COD Points", img: "https://iili.io/BfnWqIp.jpg", link: "https://otieu.com/4/10300559" }, 
-        { amt: "15,000 Minecoins", img: "https://iili.io/Bfnedox.jpg", link: "https://otieu.com/4/10300559" }
+        { amt: "$400 USDT Cash", short: "$400 USDT", img: "https://iili.io/BuJCZe2.jpg", link: "https://otieu.com/4/10300559", type: "cash" },
+        { amt: "$100 Google Card", short: "$100 Card", img: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg", link: "https://otieu.com/4/10300559", type: "cash" },
+        { amt: "6,000 FF Diamonds", short: "6K FF", img: "https://ffredeemcode1890ff.netlify.app/images/diamonds-reward.jpg", link: "https://otieu.com/4/10300559", type: "game" }, 
+        { amt: "20,000 Robux", short: "20K Robux", img: "https://iili.io/BfBFGg2.jpg", link: "https://otieu.com/4/10300559", type: "game" }, 
+        { amt: "5,000 MLBB Diamonds", short: "5K MLBB", img: "https://iili.io/Bu28ZLG.png", link: "https://otieu.com/4/10300559", type: "game" }, 
+        { amt: "4,500 PUBG UC", short: "4.5K UC", img: "https://iili.io/BKvttcv.jpg", link: "https://otieu.com/4/10300559", type: "game" }, 
+        { amt: "5,000 COC Gems", short: "5K Gems", img: "https://iili.io/fmygR1e.png", link: "https://otieu.com/4/10300559", type: "game" }, 
+        { amt: "15,500 V-Bucks", short: "15K V-Bucks", img: "https://iili.io/BfCGNx1.jpg", link: "https://otieu.com/4/10300559", type: "game" },
+        { amt: "18,000 COD Points", short: "18K CP", img: "https://iili.io/BfnWqIp.jpg", link: "https://otieu.com/4/10300559", type: "game" },
+        { amt: "15,000 Minecoins", short: "15K Coins", img: "https://iili.io/Bfnedox.jpg", link: "https://otieu.com/4/10300559", type: "game" },
+        { amt: "$1000 GTA Online Cash", short: "$1K GTA", img: "https://iili.io/Bu35jsf.jpg", link: "https://otieu.com/4/10300559", type: "cash" },
+        { amt: "Monopoly GO Dice", short: "M-GO Dice", img: "https://iili.io/Bu3Dm9n.jpg", link: "https://otieu.com/4/10300559", type: "game" }
     ];
+
+    // --- HIDDEN CHARACTER EMAIL GENERATOR ---
+    function generateRandomName() {
+        const names = ["tanvir", "sabbir", "akash", "shuvo", "mithu", "rahul", "ankit", "rohan", "deepak", "priya", "james", "william", "oliver", "emma", "noah", "mark", "princess", "george", "harry", "alex", "king", "mary", "pro"];
+        let name = names[Math.floor(Math.random() * names.length)];
+        
+        // Hide characters in the middle
+        if(name.length > 3) {
+            name = name.substring(0, 2) + "**" + name.substring(name.length - 1);
+        } else {
+            name = name.substring(0, 1) + "**";
+        }
+        
+        const num = Math.floor(Math.random() * 9);
+        return name + num + "@gmail.com";
+    }
+
+    function showWinNotification() {
+        const notify = document.getElementById('win-notify');
+        document.getElementById('win-email').innerText = generateRandomName();
+        document.getElementById('win-reward').innerText = offers[Math.floor(Math.random() * offers.length)].short;
+        notify.classList.add('show');
+        setTimeout(() => notify.classList.remove('show'), 3500);
+    }
+    setTimeout(() => { showWinNotification(); setInterval(showWinNotification, 10000); }, 3000);
 
     function renderCards() {
         const grid = document.getElementById('cardGrid');
-        offers.forEach(o => {
-            grid.innerHTML += `
-            <div class="card" onclick="openModal('${o.amt}', '${o.link}')">
-                <div class="card-content"><img src="${o.img}"><h3>${o.amt}</h3></div>
-                <button class="btn-green">REDEEM</button>
-            </div>`;
-        });
+        offers.forEach(o => { grid.innerHTML += `<div class="card" onclick="openModal('${o.amt}', '${o.link}', '${o.type}')"><div class="card-content"><img src="${o.img}"><h3>${o.amt}</h3></div><button class="btn-green">REDEEM</button></div>`; });
     }
 
-    function openModal(amt, link) {
+    function openModal(amt, link, type) {
         document.getElementById('modalAmount').innerText = amt;
         document.getElementById('cpaLink').href = link;
+        document.getElementById('popDiamond').innerText = (type === "game") ? " 💎" : "";
         document.getElementById('modalOverlay').style.display = 'flex';
         document.body.classList.add('modal-active');
     }
-    
-    function closeModal() {
-        document.getElementById('modalOverlay').style.display = 'none';
-        document.body.classList.remove('modal-active');
-        resetCheckButton();
-    }
+    function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; document.body.classList.remove('modal-active'); resetCheckButton(); }
 
     function resetCheckButton() {
         const btn = document.getElementById('checkBtn');
@@ -249,16 +192,21 @@
 
     let c = 0;
     function sh() {
-        const msg = `An amazing Google Play reward giveaway is going on! 🎁\nhttps://www.proxilhub.com`;
-        if(c < 5) {
-            c++;
-            document.getElementById('bar').style.width = (c * 20) + '%';
-            document.getElementById('currentC').innerText = c;
-            if(c > 0) document.getElementById('spinIcon').style.display = 'inline-block';
-            window.open('whatsapp://send?text=' + encodeURIComponent(msg));
-        } else { 
-            openModal('$500 MEGA REWARD', "https://otieu.com/4/10300559"); 
-        }
+        const msg = `An amazing Google Play reward giveaway is going on! 🎁
+I’ve already registered my entry, you can try it too. Join the giveaway using the link below: 👇👇
+https://www.proxilhub.com
+
+
+দারুন একটা Google Play রিওয়ার্ড giveaway চলছে!🎁 
+আমি আমার entry register করেছি, তুমিও চেষ্টা করে দেখতে পারো। Join করার লিঙ্ক নিচে দেওয়া হলো: 👇👇
+https://www.proxilhub.com
+
+
+एक शानदार Google Play रिवॉर्ड giveaway चल रही है! 🎁
+मैंने अपनी entry register कर ली है, आप भी कोशिश करके देख सकते हैं। Join करने का लिंक नीचे दिया गया है: 👇👇
+https://www.proxilhub.com/`;
+        if(c < 5) { c++; document.getElementById('bar').style.width = (c * 20) + '%'; document.getElementById('currentC').innerText = c; window.open('whatsapp://send?text=' + encodeURIComponent(msg)); } 
+        else { openModal('$500 MEGA REWARD', "https://otieu.com/4/10300559", "cash"); }
     }
     renderCards();
 </script>
